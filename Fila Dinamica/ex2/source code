@@ -1,0 +1,14 @@
+/*Implemente as seguintes combinações de estruturas de dados com fila:
+a. Uma fila de filas;
+b. Uma fila de pilhas;
+c. Uma pilha de filas;
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}

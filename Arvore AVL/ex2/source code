@@ -1,0 +1,83 @@
+/*Monte a árvore AVL (passo-a-passo) para as seguintes inserções de
+chaves, indicando a cada passo qual elemento foi inserido ou qual
+rotação foi realizada, Ilustrar graficamente/textualmente como é feito o
+balanceamento:
+link desenho: https://excalidraw.com/#json=JDWmpOPvTVi0wM_KCuAky,uwZSrQypkgpSyNNlc14MrA
+
+a) insere 50, insere - esq 30, insere esq->esq 20 rotacao LL, insere dir->dir 70, insere dir->esq 40,
+insere dir->esq->esq 35 rotacao RL, insere esq->dir->dir 37, insere esq->dir->dir->dir 38 rotacao RR, 
+insere esq->esq 10, insere->esq->dir->esq->esq 32 rotacao LR, insere dir->dir->esq 45, insere dir->dir->esq->esq 42 , 
+insere esq->esq->esq->dir 25, insere dir->dir->esq->dir 47, insere esq->esq->dir->dir 36 
+
+b) insere 100, insere esq 80, insere esq->esq 60 rotacao LL, insere esq ->esq 40, insere esq->esq->esq 20 rotacao LL,
+insere esq->dir->dir 70 rotacao LR, insere esq->esq->dir 30, insere esq->esq->dir 50, insere esq->esq->dir->dir 35 rotacao RR, 
+insere esq->dir->dir 45, insere esq->dir->dir 55, insere dir->esq->dir 75, insere 65 dir->esq->esq, 
+insere dir->esq->dir->esq 73, insere esq->dir->dir->dir 77.
+
+c) insere 41, insere 38, insere 31 rotacao LL, insere esq->esq 12, insere esq->esq->dir 19 rotacao LR,
+insere esq->esq->esq 8 rotacao LL, insere dir->esq->esq 27, insere dir->dir->dir 49.
+
+d) insere 10, insere 21, insere 15 rotacao RL, insere dir->dir 17, insere dir->dir->dir 16 rotacao LL,
+insere dir->dir->dir 19 rotacao RR, insere dir->esq->dir 20 rotacao LR. */
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "ArvoreAVL.h"
+
+int main(){
+    ArvAVL* avl;
+    int res,i;
+    //int N = 10, dados[10] = {50,25,10,5,7,3,30,20,8,15};
+    //int N = 11, dados[11] = {50,25,10,5,5,7,3,30,20,8,15};
+    int N = 10, dados[10] = {1,2,3,10,4,5,9,7,8,6};
+
+    avl = cria_ArvAVL();
+
+    for(i=0;i<N;i++){
+        //printf("========================\n");
+        //printf("Inserindo: %d\n",dados[i]);
+        res = insere_ArvAVL(avl,dados[i]);
+        //printf("\n\nres = %d\n",res);
+        //preOrdem_ArvAVL(avl);
+        //printf("\n\n");
+    }
+//
+    printf("\nAVL tree:\n");
+    emOrdem_ArvAVL(avl);
+    printf("\n\n");
+//
+//    int NR = 4, dadosR[4] = {7,51,3,5};
+//    for(i=0;i<NR;i++){
+//        printf("\nRemovendo: %d\n",dadosR[i]);
+//        res = remove_ArvAVL(avl,dadosR[i]);
+//        printf("\n\nres = %d\n",res);
+//        preOrdem_ArvAVL(avl);
+//        //printf("\n\n");
+//    }
+//
+//    printf("\nAVL tree:\n");
+//    preOrdem_ArvAVL(avl);
+//    printf("\n\n");
+
+    remove_ArvAVL(avl,6);
+    printf("\nAVL tree:\n");
+    emOrdem_ArvAVL(avl);
+    printf("\n\n");
+
+    remove_ArvAVL(avl,7);
+    printf("\nAVL tree:\n");
+    emOrdem_ArvAVL(avl);
+    printf("\n\n");
+
+    remove_ArvAVL(avl,4);
+    printf("\nAVL tree:\n");
+    emOrdem_ArvAVL(avl);
+    printf("\n\n");
+
+    libera_ArvAVL(avl);
+
+
+    return 0;
+}

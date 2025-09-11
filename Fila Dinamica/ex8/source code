@@ -1,0 +1,23 @@
+/*Faça um programa que apresente um menu contínuo com as seguintes
+opções e execute de acordo com a escolha do usuário.
+void menu()
+{
+ printf("1-Inicializa fila.\n");
+ printf("2-Verifica se a fila é vazia.\n");
+ printf("3-Verifica se a fila é cheia.\n");
+ printf("4-Enfileira o elemento na fila.\n");
+ printf("5-Desefileira elemento da fila.\n");
+ printf("6-Le o número no início da fila.\n");
+ printf("7-Testar qual fila possui mais elementos .\n");
+ printf("8-Furar a fila .\n");
+ printf("9-Sair.\n");
+}*/
+
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}

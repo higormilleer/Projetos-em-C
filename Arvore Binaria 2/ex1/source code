@@ -1,0 +1,127 @@
+/*Observe as funções insere_Arvore e remove_Arvore faça testes com as
+mesmas e descreva como cada função opera na árvore.
+
+Integrante: Higor Miller Grassi     Ra: 2554070
+       Matheus Menezes Plaza     Ra: 2554119
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "ArvoreBinaria.h" //inclui os Protótipos
+
+struct NO{
+    int info;
+    struct NO *esq;
+    struct NO *dir;
+};
+
+ArvBin* cria_ArvBin(){
+    ArvBin* raiz = (ArvBin*) malloc(sizeof(ArvBin));
+    if(raiz != NULL)
+        *raiz = NULL;
+    return raiz;
+}
+
+void libera_NO(struct NO* no){
+    if(no == NULL)
+        return;
+    libera_NO(no->esq);
+    libera_NO(no->dir);
+    free(no);
+    no = NULL;
+}
+
+void libera_ArvBin(ArvBin* raiz){
+    if(raiz == NULL)
+        return;
+    libera_NO(*raiz);//libera cada nó
+    free(raiz);//libera a raiz
+}
+
+int insere_ArvBin(ArvBin* raiz, int valor){
+    if(raiz == NULL)
+        return 0;
+    struct NO* novo;
+    novo = (struct NO*) malloc(sizeof(struct NO)); //alocou um novo no
+    if(novo == NULL)
+        return 0;
+    novo->info = valor;
+    novo->dir = NULL;
+    novo->esq = NULL;
+
+    if(*raiz == NULL) //Caso a raiz esteja sem elemento, iguala a raiz ao novo no
+        *raiz = novo;
+    else{
+        struct NO* atual = *raiz;
+        struct NO* ant = NULL;
+        while(atual != NULL){
+            ant = atual;
+            if(valor == atual->info){ //vericacao para ver se o elemento já existe na arvore
+                free(novo);
+                return 0;
+            }
+
+            if(valor > atual->info) // caso o valor for maior que o valor atual, move para a direita
+                atual = atual->dir;
+            else
+                atual = atual->esq; // caso contrario, move o ponteiro para a esquerda
+        }
+        if(valor > ant->info) // caso o valor for maior que o anterior, ele vira filho da direita
+            ant->dir = novo;
+        else
+            ant->esq = novo; // caso o valor for menor que o anterior, ele vira filho da esquerda
+    }
+    return 1;
+}
+
+int remove_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL)
+        return 0;
+    struct NO* ant = NULL;
+    struct NO* atual = *raiz;
+    while(atual != NULL){
+        if(valor == atual->info){ // caso o valor que é para remover for igual ao no atual
+            if(atual == *raiz) // e caso esse mesmo no for igual a raiz da arvore
+                *raiz = remove_atual(atual); // a cabeca da raiz e removida, ou seja, o no atual
+            else{ // caso nao seja a raiz da arvore
+                if(ant->dir == atual) // e se o no direito do no anterior for esse valor, o ant->dir e removido
+                    ant->dir = remove_atual(atual); 
+                else
+                    ant->esq = remove_atual(atual);// caso contrario, o ant->esq e removido
+            }
+            return 1;
+        }
+        ant = atual;
+        if(valor > atual->info) // move o atual para o filho a direita caso o valor do no for maior do que o que estamos procurando
+            atual = atual->dir;
+        else
+            atual = atual->esq; //caso contrario, move para a esquerda
+    }
+    return 0;
+}
+
+struct NO* remove_atual(struct NO* atual) {
+    struct NO *no1, *no2;
+    if(atual->esq == NULL){ // Caso o no nao tiver filho a esquerda, passa o no para a direita,
+        no2 = atual->dir; // libera o no atual, e retorna o filho a direita para o ajuste da arvore
+        free(atual);
+        return no2;
+    }
+    
+    //caso o atual tiver filho na esquerda
+    no1 = atual; 
+    no2 = atual->esq;
+    while(no2->dir != NULL){ //avanca ate encontrar o no mais a direita da arvore
+        no1 = no2; //transforma o no1 em pai do no2
+        no2 = no2->dir; //avanca o no para a direita
+    }
+    // no2 é o nó anterior a r na ordem e-r-d
+    // no1 é o pai de no2
+    if(no1 != atual){
+        no1->dir = no2->esq; //Faz que com o n2 se transforme em pai do n1, e o filho de n2 va para a direita do no1
+        no2->esq = atual->esq; //Assim colocando o o n2 no lugar do n[o atual e podendo liberar o no atual
+    }
+    no2->dir = atual->dir;
+    free(atual);
+    return no2;
+}

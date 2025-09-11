@@ -1,0 +1,17 @@
+/*Considere a implementação de filas usando a característica de filas
+“circulares”, pesquise sobre o assunto. Escreva uma função
+FuraFila(Fila* f, float x) que insere um item na primeira posição da fila. O
+detalhe é que seu procedimento deve ser O(1), ou seja, não pode
+movimentar os outros itens da fila. (observe que este neste caso,
+estaremos desrespeitando o conceito de FILA – primeiro a entrar é o
+primeiro a sair). Altere também a função de percorrer a Fila para que ela
+se aproveite da característica da fila circular.*/
+
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}

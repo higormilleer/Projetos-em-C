@@ -1,0 +1,11 @@
+/*Implemente a função reverso, que reposiciona os elementos na fila de
+tal forma que o início da fila torna-se o fim, e vice-versa.*/
+
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}
